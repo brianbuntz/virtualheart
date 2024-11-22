@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Twin Heart Viewer</title>
     <!-- React and ReactDOM -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" integrity="sha512-...==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" integrity="sha512-...==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Babel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js" integrity="sha512-...==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-...==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="bg-gray-800 min-h-screen flex items-center justify-center p-4">
+<body>
     <div id="root"></div>
     <script type="text/babel">
         const { useState } = React;
@@ -32,7 +32,7 @@
             'https://www.drugdiscoverytrends.com/wp-content/uploads/2024/11/LHHM_V2_Geom_v3.png',
             'https://www.drugdiscoverytrends.com/wp-content/uploads/2024/11/Top_noLA_Backflow5.png'
           ];
-
+        
           const titles = [
             'Heart Mesh View',
             'Back Top View with Backflow',
@@ -42,17 +42,17 @@
             'Geometric View',
             'Top View with Backflow'
           ];
-
+        
           const handleNext = () => {
             setCurrentIndex((prev) => (prev + 1) % images.length);
           };
-
+        
           const handlePrev = () => {
             setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
           };
-
+        
           return (
-            <div className="w-full max-w-4xl bg-gray-900 text-white rounded-lg shadow-xl">
+            <div className="w-full max-w-4xl mx-auto bg-gray-900 text-white rounded-lg shadow-xl">
               <div className="flex justify-between items-center p-4 border-b border-gray-700">
                 <h2 className="text-xl font-bold">{titles[currentIndex]}</h2>
                 <button
@@ -61,51 +61,47 @@
                   aria-label={isGridView ? "Switch to slideshow" : "Switch to grid"}
                 >
                   {isGridView ? (
-                    <i className="fas fa-expand fa-lg"></i>
+                    <i className="fas fa-expand fa-lg"></i> // Maximize icon
                   ) : (
-                    <i className="fas fa-th fa-lg"></i>
+                    <i className="fas fa-th fa-lg"></i> // Grid icon
                   )}
                 </button>
               </div>
-
+        
               {isGridView ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
                   {images.map((src, idx) => (
-                    <div key={idx} className="relative pb-3/4">
+                    <div key={idx} className="relative pb-75%">
                       <img
                         src={src}
                         alt={titles[idx]}
-                        className="absolute inset-0 w-full h-full object-cover cursor-pointer rounded-lg hover:opacity-80 transition-opacity"
+                        className="w-full h-full object-cover cursor-pointer rounded-lg hover:opacity-80 transition-opacity"
                         onClick={() => {
                           setCurrentIndex(idx);
                           setIsGridView(false);
                         }}
-                        loading="lazy"
-                        onError={(e) => { e.target.src = 'https://via.placeholder.com/800x600?text=Image+Not+Available'; }}
                       />
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="relative pb-3/4">
+                <div className="relative" style={{ paddingBottom: '75%' }}>
                   <img
                     src={images[currentIndex]}
                     alt={titles[currentIndex]}
-                    className="absolute inset-0 w-full h-full object-contain"
-                    loading="lazy"
-                    onError={(e) => { e.target.src = 'https://via.placeholder.com/800x600?text=Image+Not+Available'; }}
+                    className="absolute top-0 left-0 w-full h-full object-contain"
                   />
                   <div className="absolute inset-0 flex items-center justify-between p-4">
                     <button
                       onClick={handlePrev}
-                      className="p-3 bg-gray-800 bg-opacity-90 rounded-full hover:bg-opacity-100 transition-colors shadow-lg"
+                      className="p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
                       aria-label="Previous image"
                     >
                       <i className="fas fa-chevron-left fa-lg"></i>
                     </button>
                     <button
                       onClick={handleNext}
-                      className="p-3 bg-gray-800 bg-opacity-90 rounded-full hover:bg-opacity-100 transition-colors shadow-lg"
+                      className="p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
                       aria-label="Next image"
                     >
                       <i className="fas fa-chevron-right fa-lg"></i>
@@ -116,7 +112,7 @@
             </div>
           );
         };
-
+        
         ReactDOM.render(
             <HeartViewer />,
             document.getElementById('root')
